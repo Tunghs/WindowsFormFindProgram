@@ -27,14 +27,20 @@ namespace SearchProgram_for_List
             searchValue = searchValue.ToLower();
             // 검색할때마다 리스트박스 초기화
             listBox1.Items.Clear();
+            // for문이 종료된 후 일치하는 프로그램이 있다면 check가 true로 변경되고
+            // 일치하는 프로그램이 없다면 그대로 false로 유지됨.
+            // 프로그램 유무 확인 변수
             string check = "false";
 
             for (int i = 0; i < pro.Length; i++)
             {
+                // MainWindowHandle은 연결된 프로세스의 주 창에 대한 창 핸들을 가져온다.
                 if (pro[i].MainWindowHandle != IntPtr.Zero)
                 {
                     if (searchValue != "")
                     {
+                        // Contains는 대소문자를 구분해서 비교를 하기 때문에
+                        // 비교를 위해 모두 소문자로 변경했다.
                         string name = pro[i].MainWindowTitle.ToLower();
                         if (name.Contains(searchValue))
                         {
@@ -55,7 +61,6 @@ namespace SearchProgram_for_List
                         listBox1.Items.Add(pro[i].MainWindowTitle);
                         check = "true";
                     }
-                    
                 }
             }
             if (check == "false")
